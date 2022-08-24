@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Draw GeoJSON points</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<script src="https://unpkg.com/maplibre-gl@2.3.0/dist/maplibre-gl.js"></script>
+<link href="https://unpkg.com/maplibre-gl@2.3.0/dist/maplibre-gl.css" rel="stylesheet" />
+<style>
+	body { margin: 0; padding: 0; }
+	#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+  var map = new maplibregl.Map({
+    container: 'map',
+    style: 'https://api.maptiler.com/maps/positron/style.json?key=azm7uHTt9Y8FnF3p6S5p',
+    center: [0, 0],
+    zoom: 1
+  });
+ 
+  map.on('load', function () {
+  // Add an image to use as a custom marker
+    map.loadImage('https://maplibre.org/maplibre-gl-js-docs/assets/osgeo-logo.png',
+      function (error, image) {
+        if (error) throw error;
+        map.addImage('custom-marker', image);
+        // Add a GeoJSON source with 15 points
+        map.addSource('conferences', {
+          'type': 'geojson',
+          'data': '17-cdc.geojson'
+        });
+      });
+  });
+</script>
+ 
+</body>
+</html>
+
