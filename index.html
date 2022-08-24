@@ -32,8 +32,6 @@
                 'type': 'geojson',
                 'data': '17-cdc.geojson'
               });
-              var layers = map.getStyle().layers;
-              var firstSymbolId = layers.find(l => l.type === 'symbol').id;
               map.addLayer(
                   {
                       'id': 'id-cdc',
@@ -46,13 +44,12 @@
                               ['get', 'BINGE_CrudePrev'],
                               0,
                               '#00FF00',
-                              100,
+                              50,
                               '#FF0000'
                           ],
                           'fill-opacity': 0.75
                       }
-                  },
-                  firstSymbolId
+                  }
               );
           });
   });
