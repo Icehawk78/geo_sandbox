@@ -28,7 +28,7 @@
               if (error) throw error;
               map.addImage('custom-marker', image);
               // Add a GeoJSON source with 15 points
-              map.addLSource('cdc', {
+              map.addSource('cdc', {
                 'type': 'geojson',
                 'data': '17-cdc.geojson'
               });
