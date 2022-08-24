@@ -22,17 +22,39 @@
   });
  
   map.on('load', function () {
-  // Add an image to use as a custom marker
-    map.loadImage('https://maplibre.org/maplibre-gl-js-docs/assets/osgeo-logo.png',
-      function (error, image) {
-        if (error) throw error;
-        map.addImage('custom-marker', image);
-        // Add a GeoJSON source with 15 points
-        map.addSource('conferences', {
-          'type': 'geojson',
-          'data': '17-cdc.geojson'
-        });
-      });
+      // Add an image to use as a custom marker
+      map.loadImage('https://maplibre.org/maplibre-gl-js-docs/assets/osgeo-logo.png',
+          function (error, image) {
+              if (error) throw error;
+              map.addImage('custom-marker', image);
+              // Add a GeoJSON source with 15 points
+              map.addLSource('cdc', {
+                'type': 'geojson',
+                'data': '17-cdc.geojson'
+              });
+              var layers = map.getStyle().layers;
+              var firstSymbolId = layers.find(l => l.type === 'symbol').id;
+              map.addLayer(
+                  {
+                      'id': 'id-cdc',
+                      'source': 'cdc',
+                      'type': 'fill',
+                      'paint': {
+                          'fill-color': [
+                              'interpolate',
+                              ['linear'],
+                              ['get', 'BINGE_CrudePrev'],
+                              0,
+                              '#00FF00',
+                              100,
+                              '#FF0000'
+                          ],
+                          'fill-opacity': 0.75
+                      }
+                  },
+                  firstSymbolId
+              );
+          });
   });
 </script>
  
